@@ -1,0 +1,2 @@
+usuario --> escribe la nota en el campo de texto y da click al botón "Send" (POST note y noteDate al servidor)
+servidor --> responde recargando la página (envía el HTML CSS y JS actualizados con la nueva nota agregada) 
