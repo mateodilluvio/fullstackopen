@@ -12,18 +12,25 @@ const Button = (props) => {
 const Statistics = (props) => {
   const { good, neutral, bad, all, average } = props
   console.log("Statistics props", props)
-  
-  return (
-    <>
-      <p>Good reviews: {good}</p>
-      <p>Neutral reviews: {neutral}</p>
-      <p>Bad reviews: {bad}</p>
+  if (all === 0) {
+    return (
+      <div>
+        <p>The app is used by pressing the buttons</p>
+      </div>
+    )
+  } else {
+    return (
+      <>
+        <p>Good reviews: {good}</p>
+        <p>Neutral reviews: {neutral}</p>
+        <p>Bad reviews: {bad}</p>
 
-      <p>All reviews: {all}</p>
-      <p>Positive: {parseInt((good / all) * 100)}%</p>
-      <p>Average: {parseInt((average / all) * 100)}%</p>
-    </>
-  )
+        <p>All reviews: {all}</p>
+        <p>Positive: {parseInt((good / all) * 100)}%</p>
+        <p>Average: {parseInt((average / all) * 100)}%</p>
+      </>
+    )
+  }
 }
 
 const App = () => {
