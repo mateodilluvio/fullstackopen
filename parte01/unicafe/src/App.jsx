@@ -1,10 +1,27 @@
 import { useState } from 'react'
 
 const Button = (props) => {
-  
+
   return (
     <>
       <button onClick={props.handleClick}>{props.text}</button>
+    </>
+  )
+}
+
+const Statistics = (props) => {
+  const { good, neutral, bad, all, average } = props
+  console.log("Statistics props", props)
+  
+  return (
+    <>
+      <p>Good reviews: {good}</p>
+      <p>Neutral reviews: {neutral}</p>
+      <p>Bad reviews: {bad}</p>
+
+      <p>All reviews: {all}</p>
+      <p>Positive: {parseInt((good / all) * 100)}%</p>
+      <p>Average: {parseInt((average / all) * 100)}%</p>
     </>
   )
 }
@@ -50,15 +67,7 @@ const App = () => {
 
       <h1>Statistics</h1>
 
-      <p>Good reviews: {good}</p>
-      <p>Neutral reviews: {neutral}</p>
-      <p>Bad reviews: {bad}</p>
-
-      <p>All reviews: {all}</p>
-      <p>Positive: {parseInt((good / all) * 100)}%</p> 
-      {/*Esto ahora devuelve NaN al iniciarse pero luego 
-      lo resolveré con renderizado condicional*/}
-      <p>Average: {parseInt((average / all) * 100)}%</p> 
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} average={average} />
     </div>
   )
 }
