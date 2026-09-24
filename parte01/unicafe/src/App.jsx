@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const Button = (props) => {
-  //console.log(props)
+  
   return (
     <>
       <button onClick={props.handleClick}>{props.text}</button>
@@ -15,41 +15,50 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  //const [all, setAll] = useState(0)
-  //const [average, setAverage] = useState(0)
+  const [all, setAll] = useState(0)
+  const [average, setAverage] = useState(0)
 
   const handleGoodClick = () => {
     setGood(good + 1)
-    //setAll(all + 1)
+    setAll(all + 1)
+    setAverage(average + 1)
     const valorActual = (good + 1)
     console.log("good increments", valorActual)
   }
 
   const handleNeutralClick = () => {
     setNeutral(neutral + 1)
-    //setAll(all + 1)
+    setAll(all + 1)
     const valorActual = (neutral + 1)
     console.log("neutral increments", valorActual)
   }
 
   const handleBadClick = () => {
     setBad(bad + 1)
-    //setAll(all + 1)
+    setAll(all + 1)
+    setAverage(average - 1)
     const valorActual = (bad + 1)
     console.log("bad increments", valorActual)
   }
 
   return (
     <div>
+      <h1>Give Feedback!</h1>
       <Button handleClick={handleGoodClick} text="Add good review" />
       <Button handleClick={handleNeutralClick} text="Add neutral review" />
       <Button handleClick={handleBadClick} text="Add bad review" />
+
+      <h1>Statistics</h1>
 
       <p>Good reviews: {good}</p>
       <p>Neutral reviews: {neutral}</p>
       <p>Bad reviews: {bad}</p>
 
-      {/*<p>All reviews: {all}</p>*/}
+      <p>All reviews: {all}</p>
+      <p>Positive: {parseInt((good / all) * 100)}%</p> 
+      {/*Esto ahora devuelve NaN al iniciarse pero luego 
+      lo resolveré con renderizado condicional*/}
+      <p>Average: {parseInt((average / all) * 100)}%</p> 
     </div>
   )
 }
