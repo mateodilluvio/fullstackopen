@@ -8,26 +8,36 @@ const Button = (props) => {
     </>
   )
 }
+const StatisticLine = (props) => {
+  console.log("StatisticLine props", props)
+  return (
+    <>
+      <p>{props.text} {props.value}</p>
+    </>
+  )
+}
 
 const Statistics = (props) => {
-  const { good, neutral, bad, all, average } = props
+  const { good, neutral, bad, all, averageRatio } = props
   console.log("Statistics props", props)
+
+  const positive = parseInt((good / all) * 100)
+
   if (all === 0) {
     return (
       <div>
-        <p>The app is used by pressing the buttons</p>
+        <p>No feedback given yet.</p>
       </div>
     )
   } else {
     return (
       <>
-        <p>Good reviews: {good}</p>
-        <p>Neutral reviews: {neutral}</p>
-        <p>Bad reviews: {bad}</p>
-
-        <p>All reviews: {all}</p>
-        <p>Positive: {parseInt((good / all) * 100)}%</p>
-        <p>Average: {parseInt((average / all) * 100)}%</p>
+        <StatisticLine text="Good" value={good} />
+        <StatisticLine text="Neutral" value={neutral} />
+        <StatisticLine text="Bad" value={bad} />
+        <StatisticLine text="All" value={all} />
+        <StatisticLine text="Positive %" value={positive} />
+        <StatisticLine text="Average " value={averageRatio} />
       </>
     )
   }
@@ -39,31 +49,15 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const [all, setAll] = useState(0)
-  const [average, setAverage] = useState(0)
+  const all = (good + bad + neutral)
 
-  const handleGoodClick = () => {
-    setGood(good + 1)
-    setAll(all + 1)
-    setAverage(average + 1)
-    const valorActual = (good + 1)
-    console.log("good increments", valorActual)
-  }
+  const score = good - bad
 
-  const handleNeutralClick = () => {
-    setNeutral(neutral + 1)
-    setAll(all + 1)
-    const valorActual = (neutral + 1)
-    console.log("neutral increments", valorActual)
-  }
+  const averageRatio = all === 0 ? 0 : score / all
 
-  const handleBadClick = () => {
-    setBad(bad + 1)
-    setAll(all + 1)
-    setAverage(average - 1)
-    const valorActual = (bad + 1)
-    console.log("bad increments", valorActual)
-  }
+  const handleGoodClick = () => { setGood(good + 1) }
+  const handleNeutralClick = () => { setNeutral(neutral + 1) }
+  const handleBadClick = () => { setBad(bad + 1) }
 
   return (
     <div>
@@ -74,7 +68,7 @@ const App = () => {
 
       <h1>Statistics</h1>
 
-      <Statistics good={good} neutral={neutral} bad={bad} all={all} average={average} />
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} averageRatio={averageRatio} />
     </div>
   )
 }
